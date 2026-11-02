@@ -304,6 +304,8 @@
 # agent-instructions：宿主注入的 agent 级指令层（对齐红队智能体）。
 - id: agent-instructions
   name: '@deepseek-ai/dsh-agent-instructions'
+  config:
+    maxBytes: 65536
 
 # ── shell ───────────────────────────────────────────────────────────────────
 
