@@ -51,7 +51,7 @@
 
 ### 方式二：插件市场（如果你有托管地址）
 
-在 `package.json` 的 `dsh.install` 里补上 tarball / zip / git 地址，即可从 dsh 插件市场一键安装。
+命令  dsh plugin --profile web add github:stepintothe/dsh-hema ，即可从 dsh 插件市场一键安装。
 
 ---
 
