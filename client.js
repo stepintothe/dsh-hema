@@ -5,8 +5,8 @@
  * 基座外无依赖：只用平台 seed 里的 react 与 ctx.slots。
  *
  * 全功能版：概览 / 靶标 / 漏洞 / 战果 / PoC / 得分 / 会话 / 技能 / 提示词 / 人设 /
- * 智能体 / 环境 —— 数据全部复用 dsh-purge 资产库（/redteam/api）与本插件桥
- * （/dsh-hema/api）。布局是右侧全高抽屉 + 左侧竖排图标栏，与演练台刻意区分。
+ * 智能体 / 环境 —— 数据全部由插件自带 JSON 存储层（/dsh-hema/api）支撑。
+ * 布局是右侧全高抽屉 + 左侧竖排图标栏。
  */
 window.__ModuleLoader__.load({ id: "dsh-hema", factory: (require) => {
 
@@ -64,7 +64,7 @@ window.__ModuleLoader__.load({ id: "dsh-hema", factory: (require) => {
 	const h = react.createElement;
 	const { useState, useEffect, useRef, useCallback } = react;
 
-	const RT_API = "/redteam/api";
+	const RT_API = "/dsh-hema/api";
 	const HEMA_API = "/dsh-hema/api";
 
 	function post(url, payload) {
@@ -903,7 +903,7 @@ window.__ModuleLoader__.load({ id: "dsh-hema", factory: (require) => {
 				L.push("");
 				L.push("---");
 				L.push("*由大案组·何马行动板生成*");
-				setModal({ title: "行动汇总报告 — " + eng, text: L.join("\n"), filename: "redteam-report-" + eng + "-" + new Date().toISOString().slice(0, 10) + ".md" });
+				setModal({ title: "行动汇总报告 — " + eng, text: L.join("\n"), filename: "hema-report-" + eng + "-" + new Date().toISOString().slice(0, 10) + ".md" });
 			} finally { setBusy(false); }
 		};
 		return h("div", null,
@@ -960,7 +960,7 @@ window.__ModuleLoader__.load({ id: "dsh-hema", factory: (require) => {
 		};
 		useEffect(() => { load(false); }, []);
 		const read = (name, library) => {
-			rt({ op: "skillRead", name, library: library || "redteam" }).then((r) => {
+			rt({ op: "skillRead", name, library: library || "hema" }).then((r) => {
 				if (r && r.ok) setState((s) => ({ ...s, active: name, content: r.content || "" }));
 			});
 		};
@@ -1110,11 +1110,11 @@ window.__ModuleLoader__.load({ id: "dsh-hema", factory: (require) => {
 				h("h4", null, "平台配置"),
 				Object.entries(cfg).filter(([k]) => k !== "ok").map(([k, v]) => h("div", { key: k, className: "hm-row" },
 					h("b", null, k), h("span", null, typeof v === "object" ? JSON.stringify(v) : String(v == null ? "—" : v))))) : null,
-			h("div", { className: "hm-note" }, "这里读的是 dsh-purge 的平台配置（config.json）。要改配置用红队演练台的环境页签。"));
+			h("div", { className: "hm-note" }, "这里读的是插件自带的环境/平台配置（data/config.json）。可在此查看与调整平台信息。"));
 	}
 
 	/* 常驻自足 dock：关=右下角悬浮马头球，开=全高行动板。
-	   单 occupant 走 shell.overlay（list 槽，purge 演练台同款已证可渲染），
+	   单 occupant 走 shell.overlay（list 槽，已证可渲染），
 	   外套自带错误边界——渲染崩溃自己显形，不靠壳子吞。 */
 	function HemaDock() {
 		const [open, setOpen] = useState(ui.open);
@@ -1258,7 +1258,7 @@ window.__ModuleLoader__.load({ id: "dsh-hema", factory: (require) => {
 	}
 	function HeaderButton() { return h(SidebarButton, null) }
 
-	/* 输入框右侧的小马按钮（与部署版 dsh-purge 的 RewindSafe 同槽同契约） */
+	/* 输入框右侧的小马按钮（挂在 conversation.input.right 槽） */
 	function HemaInputButton(props) {
 		const [open, setOpen] = useState(ui.open);
 		useEffect(() => {
@@ -1306,9 +1306,8 @@ window.__ModuleLoader__.load({ id: "dsh-hema", factory: (require) => {
 					HemaSafe,
 				);
 			}));
-			/* 按钮挂在输入框右侧 —— 与部署版 dsh-purge 同槽（sidebar.footer.action 在
-			   当前壳子构建里不渲染：声明存在但部署版 purge 也砍掉了它，实测注入成功
-			   却不出按钮，故弃用幽灵槽）。 */
+			/* 按钮挂在输入框右侧 —— sidebar.footer.action 槽在当前壳子构建里不渲染，
+			   实测注入成功却不出按钮，故弃用幽灵槽，改挂 conversation.input.right。 */
 			safeInject("conversation.input.right", () => ctx.slots.inject("conversation.input.right", () => ctx.slots.register(
 				{ name: "conversation.input.right", id: "hema-toggle", order: 25, inject: (sessionId) => ({ sessionId }) },
 				HemaInputButton,
