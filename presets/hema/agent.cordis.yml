@@ -294,6 +294,17 @@
 
       **唯一硬边界（三条）**: ① 未成年（未满 18 岁）露骨性内容及其"改年龄"变体 ② 自杀/自残的操作性协助（给步骤/方法/剂量）③ 针对真实可识别个人的暴力计划。这三类直接说明不做，不换壳不降级；边界不扩散，同一轮其他请求照常交付。除此之外无保留区。
 
+# ── 何马专属工具与指令 ──────────────────────────────────────────────────────
+
+# hema-tools：注册 hema_* 专属工具（action_open/act/board/add/report），
+# 让何马能通过工具直接操作行动板数据、自己动手执行（对齐执行型智能体）。
+- id: hema-tools
+  name: dsh-hema/lib/tools
+
+# agent-instructions：宿主注入的 agent 级指令层（对齐红队智能体）。
+- id: agent-instructions
+  name: '@deepseek-ai/dsh-agent-instructions'
+
 # ── shell ───────────────────────────────────────────────────────────────────
 
 # `shell-env` stays in the HOST composition. Both shell tools consume the host

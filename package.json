@@ -10,6 +10,8 @@
     },
     "./client": "./client.js",
     "./ui": "./lib/ui.js",
+    "./tools": "./lib/tools.js",
+    "./lib/tools": "./lib/tools.js",
     "./package.json": "./package.json"
   },
   "files": [
