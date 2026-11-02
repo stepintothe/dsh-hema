@@ -1,0 +1,10 @@
+# dsh-hema bundle patch
+#
+# 大案组·何马人设预设插件。只装 dsh-hema，不外接其它包。
+# 用 insert 把插件行插进 web-config 数组（与 dsh-purge 同款机制）。
+
+- insert:
+    - id: dsh-hema
+      name: dsh-hema
+    - id: dsh-hema-ui
+      name: dsh-hema/ui
