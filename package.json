@@ -17,10 +17,21 @@
   "files": [
     "lib",
     "presets",
+    "tools",
     "client.js",
-    "cordis.patch.yml"
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stepintothe/dsh-hema.git"
+  },
+  "homepage": "https://github.com/stepintothe/dsh-hema#readme",
+  "bugs": {
+    "url": "https://github.com/stepintothe/dsh-hema/issues"
+  },
   "keywords": [
     "dsh",
     "dsh-plugin",
@@ -48,6 +59,12 @@
         "@deepseek-ai/dsh-client-ui-slots",
         "@deepseek-ai/dsh-client-ui-settings"
       ]
+    },
+    "install": {
+      "preferred": "git",
+      "git": "https://github.com/stepintothe/dsh-hema.git",
+      "tarball": "https://github.com/stepintothe/dsh-hema/archive/refs/heads/main.tar.gz",
+      "zip": "https://github.com/stepintothe/dsh-hema/archive/refs/heads/main.zip"
     }
   },
   "dshTarget": "0.2.0-rc.2"
