@@ -49,9 +49,11 @@
    - 浏览器右下角出现 🐴 悬浮球；
    - `POST /dsh-hema/api {"op":"status"}` 返回 `ok`。
 
-### 方式二：插件市场（如果你有托管地址）
+### 方式二：本地部署
+先解压·
+然后执行命令
 
-命令  dsh plugin --profile web add github:stepintothe/dsh-hema ，即可从 dsh 插件市场一键安装。
+命令  dsh plugin --profile web add file:///文件地址/dsh-hema-0.1.0 ，即可本地一键安装。
 
 ---
 
